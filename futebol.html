@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Futebol</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+<body>
+    <div id="container" class="container">
+        <div id="head" class="jumbotron">
+            <h1 id="title" class="text-center">Futebol</h1>
+        </div>
+        <div id="content" class="row col-md-10 col-md-offset-1">
+            <div id="items" class="">
+
+            </div>
+        </div>
+    </div>
+
+<script src="/js/libs/jquery.js"></script>
+<script src="/js/libs/bootstrap.js"></script>
+<script>
+    $(document).ready(function(){
+        var items = $('#items');
+        $.getJSON('/api/futebol/', function (data) {
+            for(var i=0; i<data.length; i++){
+                var time = data[i];
+                var alert = "";
+
+                if(time.ponto == 0) alert = 'danger';
+                else if(time.ponto == 1) alert = 'warning';
+                else alert = 'success';
+                var html =
+                        '<div id="item" class="col-md-6">\
+                            <div id="tipo" class="panel-body alert-'+ alert + ' alert" when="Perdeu">\
+                                <a id="link" href="time.html#?URI=/api/futebol/'+time.id+'" class="">\
+                                    <p id="nome" class="lead text-center">'+time.nome+'</p>\
+                                    <p id="estado" class="text-center">'+time.estado+'</p>\
+                                </a>\
+                            </div>\
+                        </div>';
+
+                items.append(html);
+            }
+        })
+    })
+</script>
+</body>
+</html>
